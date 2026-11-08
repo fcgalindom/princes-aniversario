@@ -31,13 +31,15 @@ class HeartParticle {
     }
   }
 
-  draw(ctx) {
+  draw(ctx, disableBlur = false) {
     if (this.alpha <= 0) return
     ctx.save()
     ctx.globalAlpha = this.alpha
     ctx.fillStyle = this.color
-    ctx.shadowColor = this.color
-    ctx.shadowBlur = 12
+    if (!disableBlur) {
+      ctx.shadowColor = this.color
+      ctx.shadowBlur = 12
+    }
     const s = this.size
     ctx.beginPath()
     ctx.moveTo(this.x, this.y + s * 0.3)
@@ -72,8 +74,11 @@ const HeartsCanvas = forwardRef(function HeartsCanvas(_, ref) {
     let height = (canvas.height = window.innerHeight)
     let rafId
 
+    const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0
+    const initialCount = isMobile ? 12 : 35
+
     particlesRef.current = []
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < initialCount; i++) {
       particlesRef.current.push(
         new HeartParticle(Math.random() * width, Math.random() * height, false, width, height)
       )
@@ -84,7 +89,7 @@ const HeartsCanvas = forwardRef(function HeartsCanvas(_, ref) {
       const list = particlesRef.current
       for (let i = list.length - 1; i >= 0; i--) {
         list[i].update()
-        list[i].draw(ctx)
+        list[i].draw(ctx, isMobile)
         if (list[i].isBurst && list[i].alpha <= 0) list.splice(i, 1)
       }
       rafId = requestAnimationFrame(animate)
