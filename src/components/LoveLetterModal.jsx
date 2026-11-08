@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 const message = `Bueno, no sé cómo hacer esto, jeje. Entonces, te amo, y lo que quería representar fue el jardín que nos perdimos. Pero te quería agradecer por enseñarme a amar, porque eres muy dulce conmigo, porque siento mucho tu amor hacia mí. Y siempre critiqué lo cursi, lo curioso, pero contigo me dan ganas de demostrar cosas.
 
-Te amo. Gracias por venir todo este mesj, gracias por demostrarme el amor, por esas cosas de cumpleaños. Sé que no soy tan bueno en estas cosas, pero  tenía el tiempo y quise hacer esto para ti porque te amo.`
+Te amo. Gracias por venir todo este mesf, gracias por demostrarme el amor, por esas cosas de cumpleaños. Sé que no soy tan bueno en estas cosas, pero  tenía el tiempo y quise hacer esto para ti porque te amo.`
 
 export default function LoveLetterModal({ isOpen, onClose }) {
   const indexRef = useRef(0)

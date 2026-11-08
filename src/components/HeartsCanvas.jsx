@@ -84,7 +84,12 @@ const HeartsCanvas = forwardRef(function HeartsCanvas(_, ref) {
       )
     }
 
-    function animate() {
+    const interval = isMobile ? 1000 / 30 : 0
+    let lastTime = 0
+
+    function animate(time) {
+      if (time - lastTime < interval) { rafId = requestAnimationFrame(animate); return }
+      lastTime = time
       ctx.clearRect(0, 0, width, height)
       const list = particlesRef.current
       for (let i = list.length - 1; i >= 0; i--) {
@@ -94,7 +99,7 @@ const HeartsCanvas = forwardRef(function HeartsCanvas(_, ref) {
       }
       rafId = requestAnimationFrame(animate)
     }
-    animate()
+    animate(0)
 
     function handleResize() {
       width = canvas.width = window.innerWidth
